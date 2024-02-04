@@ -3,8 +3,9 @@ import { Canvas } from "react-three-fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader";
+import Loader from "./Loader";
 
-function Model({ link, onModelLoad }) {
+function Model({ link }) {
   const groupRef = useRef();
   const { scene } = useGLTF(link);
 
@@ -20,10 +21,8 @@ function Model({ link, onModelLoad }) {
         groupRef.current.position.y = -center.y;
         groupRef.current.position.z = -center.z;
       }
-
-      onModelLoad();
     });
-  }, [link, onModelLoad]);
+  }, [link]);
 
   return (
     <group ref={groupRef}>
@@ -32,7 +31,7 @@ function Model({ link, onModelLoad }) {
   );
 }
 
-export default function ModelViewer({ data, onModelLoad }) {
+export default function ModelViewer({ data, color }) {
   const [x, setX] = useState();
   const [y, setY] = useState();
   const [z, setZ] = useState();
@@ -54,8 +53,8 @@ export default function ModelViewer({ data, onModelLoad }) {
       }}
     >
       <ambientLight intensity={1} />
-      <Suspense fallback={null}>
-        <Model link={data?.media_path} onModelLoad={onModelLoad} />
+      <Suspense fallback={<Loader color={color} />}>
+        <Model link={data?.media_path} />
       </Suspense>
 
       <OrbitControls />

@@ -12,28 +12,38 @@ import "aos/dist/aos.css";
 import { jelly } from "ldrs";
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
-  // const [progressValue, setProgressValue] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const handleModelLoad = () => {
-    // setProgressValue((prevValue) => Math.min(prevValue + 20, 100));
-    // setProgressValue(100);
-    setLoading(false);
+  const imagePaths = [
+    "/images/logo1.png",
+    "/images/img2.png",
+    "/images/img3.png",
+    "/images/img4.png",
+    "/images/img5.png",
+    "/images/plus.png",
+  ];
+
+  const preloadImages = () => {
+    const imagePromises = imagePaths.map((path) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = path;
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    });
+
+    return Promise.all(imagePromises);
   };
 
   useEffect(() => {
     jelly.register();
     Aos.init();
     window.scrollTo(0, 0);
+    preloadImages().then(() => {
+      setLoading(false);
+    });
   }, []);
-
-  useEffect(() => {
-    // console.log(loading);
-  }, [loading]);
-
-  const servicesComponent = <Services handleModelLoad={handleModelLoad} />;
-
-  // console.log(loading);
 
   return (
     <>
@@ -47,12 +57,6 @@ const Home = () => {
         >
           <Box position="fixed">
             <l-jelly size="50" speed="1" color="#745AC3"></l-jelly>
-            {/* <Box>
-              <Progress size="lg" isIndeterminate />
-            </Box> */}
-          </Box>
-          <Box position="absolute" left="-10000px">
-            {servicesComponent}
           </Box>
         </Box>
       ) : (
@@ -80,7 +84,7 @@ const Home = () => {
 
           {/* services */}
           <Box px="100px" className="pd">
-            <Services handleModelLoad={handleModelLoad} />
+            <Services />
           </Box>
 
           {/* schedule call */}

@@ -1,46 +1,10 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
 import Demo from "./modals/Demo";
 import CircularText from "./CircularText";
 
 const Landing = () => {
-  // useEffect(() => {
-  //   const text = document.querySelector(".c-text p");
-
-  //   text.innerHTML = text.innerHTML
-  //     .split("")
-  //     .map((char, i) => `<span>${char}</span>`)
-  //     .join("");
-  // }, []);
-
-  // useEffect(() => {
-  //   const imageElements = document.querySelectorAll("img");
-
-  //   const handleImageLoad = () => {
-  //     const allImagesLoaded = Array.from(imageElements).every(
-  //       (img) => img.complete && img.naturalHeight !== 0
-  //     );
-  //     console.log(allImagesLoaded);
-
-  //     if (allImagesLoaded) {
-  //       onImagesLoaded(true);
-  //     } else {
-  //       onImagesLoaded(false);
-  //     }
-  //   };
-
-  //   imageElements.forEach((img) => {
-  //     img.addEventListener("load", handleImageLoad);
-  //   });
-
-  //   return () => {
-  //     imageElements.forEach((img) => {
-  //       img.removeEventListener("load", handleImageLoad);
-  //     });
-  //   };
-  // }, [onImagesLoaded]);
-
   const handleHover = (e) => {
     const elements = document.querySelectorAll(".blur");
     elements.forEach((el) => {

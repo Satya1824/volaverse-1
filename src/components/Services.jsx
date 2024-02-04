@@ -3,39 +3,7 @@ import React, { useEffect, useState } from "react";
 import ModelViewer from "./models/Model1";
 import servicesData from "../data/services/data";
 
-const Services = ({ handleModelLoad }) => {
-  // const [loading, setLoading] = useState(true);
-  const [progressValue, setProgressValue] = useState(0);
-
-  const onModelLoad = () => {
-    handleModelLoad();
-    setProgressValue(100);
-  };
-
-  useEffect(() => {
-    let intervalId;
-
-    const simulateModelLoading = () => {
-      let progress = 0;
-      intervalId = setInterval(() => {
-        if (progress < 100) {
-          setProgressValue((prevValue) => Math.min(prevValue + 20, 100));
-          progress += 20;
-        } else {
-          clearInterval(intervalId);
-          onModelLoad();
-        }
-      }, 1000);
-    };
-
-    simulateModelLoading();
-    return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    // window.scrollTo(0, 0);
-  }, []);
-
+const Services = () => {
   return (
     <Box mb="150px" className="s-mb">
       {/* {loading ? <>loading</> : null} */}
@@ -155,20 +123,7 @@ const Services = ({ handleModelLoad }) => {
                       borderRadius="1.5rem"
                       overflow="hidden"
                     >
-                      {progressValue === 100 ? (
-                        <ModelViewer data={data} onModelLoad={onModelLoad} />
-                      ) : (
-                        <Progress
-                          value={progressValue}
-                          size="xs"
-                          colorScheme="pink"
-                          width="15%"
-                          top="50%"
-                          left="50%"
-                          transform="translate(-50%, -50%)"
-                          transition="value 1s ease-in-out"
-                        />
-                      )}
+                      <ModelViewer data={data} color={"#F899BB"} />
                     </Box>
                   ) : (
                     <Image
@@ -276,20 +231,7 @@ const Services = ({ handleModelLoad }) => {
                         borderRadius="1.5rem"
                         overflow="hidden"
                       >
-                        {progressValue === 100 ? (
-                          <ModelViewer data={data} onModelLoad={onModelLoad} />
-                        ) : (
-                          <Progress
-                            value={progressValue}
-                            size="xs"
-                            colorScheme="purple"
-                            width="15%"
-                            top="50%"
-                            left="50%"
-                            transform="translate(-50%, -50%)"
-                            transition="value 1s ease-in-out"
-                          />
-                        )}
+                        <ModelViewer data={data} color={"#745AC3"} />
                       </Box>
                     ) : (
                       <Image
